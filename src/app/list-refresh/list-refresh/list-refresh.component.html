@@ -1,0 +1,32 @@
+<div class="mat-elevation-z1">
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="selectId(row.id)">
+        <button mat-button> {{row.id}} </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Author Column -->
+    <ng-container matColumnDef="author">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Author </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.author}} </mat-cell>
+    </ng-container>
+
+    <!-- A Column -->
+    <ng-container matColumnDef="product">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Product </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.product}} </mat-cell>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.price | currency}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="row.highlightClass"></mat-row>
+  </mat-table>
+</div>

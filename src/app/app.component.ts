@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {MessageService} from './service/message.service';
+import {ApplicationState} from './store/application-state';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  constructor(private service: MessageService, private _store: Store<ApplicationState>) {
+    this.service.subject.subscribe();
+  }
 }

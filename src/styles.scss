@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/scss/bootstrap-grid.scss";
+
+.align-item-start .mat-grid-tile .mat-figure{
+  align-items: flex-start;
+}
+
+@-webkit-keyframes flash {
+  0% {
+    background-color: Yellow;
+    opacity:1;
+  }
+  22% {
+    background-color: Yellow;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.flash {
+  -webkit-animation-name: flash;
+  -webkit-animation-duration: 900ms;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in-out;
+}

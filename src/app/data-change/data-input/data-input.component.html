@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Order pad</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <form class="example-form">
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="ID" [(ngModel)]="message.id" name="id">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Author" [(ngModel)]="message.author" name="author">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Product" [(ngModel)]="message.message.product" name="product">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Price" [(ngModel)]="message.message.price" name="price">
+        </mat-form-field>
+      </p>
+
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="sendMsg()">Send</button>
+  </mat-card-actions>
+</mat-card>
