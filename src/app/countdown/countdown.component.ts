@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/timer';
@@ -7,22 +7,32 @@ import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-countdown',
-  templateUrl: './countdown.component.html',
+  template: `
+  <div class="progress">
+    <div class="progress-bar" role="progressbar"
+         [ngStyle]="{'width': styleExp}" [attr.aria-valuenow]="value"
+         aria-valuemin="0" aria-valuemax="100">
+      <span *ngIf="value">{{sec}}s</span>
+    </div>
+  </div>`,
   styleUrls: ['./countdown.component.scss']
 })
 export class CountdownComponent implements OnInit {
 
-  value = 100;
-  start = Date.now() + 60 * 1000;
+  @Input() value: number = null;
+  start: number;
   sec = 60;
+  styleExp: string = '100%';
+  @Input() updateTime: number;
+
   constructor() {
-    setTimeout(function () {
-      alert('test');
-    }, 10000);
   }
 
   ngOnInit() {
-    let t = this;
+    const t = this;
+    t.start = t.updateTime + 60 * 1000;
+    t.sec = Math.round((t.start - Date.now()) / 1000 );
+    t.styleExp = this.value + '%';
     const source = Observable.interval(1000);
     const example = source.takeWhile(val => val <= 60);
     const subscribe = example.subscribe(val => {
@@ -34,8 +44,13 @@ export class CountdownComponent implements OnInit {
         } else {
           this.value = Math.round((t.start - Date.now()) / 600);
         }
+        t.styleExp = t.getStyleExp();
       }
     });
+  }
+
+  getStyleExp(): string {
+    return this.value != null ? this.value + '%' : '100%';
   }
 
 }

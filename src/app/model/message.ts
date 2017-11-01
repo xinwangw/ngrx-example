@@ -7,6 +7,7 @@ export interface Message {
   author: string;
   message: MessageBody;
   highlightClass?: string;
+  updatedTime?: number;
 }
 export interface SendMessage {
   method: string;

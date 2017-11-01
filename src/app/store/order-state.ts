@@ -5,6 +5,7 @@ export interface OrderState {
   author: string;
   message: MessageBody;
   highlightClass?: string;
+  updatedTime?: number;
 }
 
 export const INIT_ORDER_STATE: OrderState =  {

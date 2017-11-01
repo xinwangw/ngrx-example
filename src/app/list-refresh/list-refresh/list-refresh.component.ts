@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 import {ApplicationState} from '../../store/application-state';
 import {Store} from '@ngrx/store';
 import {Message} from '../../model/message';
-import {getInitOrders} from '../../reducer/reducer';
+import {getInitOrders, getOrderData} from '../../reducer/reducer';
 import {MessageService} from '../../service/message.service';
 import {SelectIdAction} from '../../store/actions';
 
@@ -20,7 +20,7 @@ import {SelectIdAction} from '../../store/actions';
 })
 export class ListRefreshComponent implements OnInit {
 
-  displayedColumns = ['id', 'author', 'product', 'price'];
+  displayedColumns = ['id', 'author', 'product', 'price', 'updatedTime'];
   exampleDatabase: ExampleDatabase;
   dataSource: ExampleDataSource;
 
@@ -50,6 +50,8 @@ export interface Element {
   product: string;
   price: number;
   highlightClass: string;
+  updatedTime: number;
+  restPercentage: number;
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
@@ -71,7 +73,9 @@ export class ExampleDatabase {
           author: msg.author,
           product: msg.message.product,
           price: msg.message.price,
-          highlightClass: msg.highlightClass
+          highlightClass: msg.highlightClass,
+          updatedTime: msg.updatedTime,
+          restPercentage: msg.updatedTime + 60 * 1000 < Date.now() ? 0 : Math.round((msg.updatedTime + 60 * 1000 - Date.now()) / 600)
         };
       }));
     });

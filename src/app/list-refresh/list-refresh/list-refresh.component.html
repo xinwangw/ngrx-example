@@ -25,7 +25,12 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.price | currency}} </mat-cell>
     </ng-container>
-
+    <ng-container matColumnDef="updatedTime">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Timer </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <app-countdown [updateTime]="row.updatedTime" [value]="row.restPercentage"></app-countdown>
+      </mat-cell>
+    </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="row.highlightClass"></mat-row>
   </mat-table>
