@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/timer';
@@ -26,6 +26,7 @@ export class CountdownComponent implements OnInit, OnChanges {
   styleExp = '100%';
   @Input() updateTime: number;
   @Input('stop') stopCountDown: boolean;
+  @Output() secEmitter: EventEmitter<number> = new EventEmitter();
 
   constructor() {
   }
@@ -65,6 +66,7 @@ export class CountdownComponent implements OnInit, OnChanges {
   private _refreshSec() {
     this.sec = Math.round((this.start - Date.now()) / 1000 );
     this.sec = this.sec < 0 ? 0 : this.sec;
+    this.secEmitter.next(this.sec);
   }
 
   private _refreshValue() {

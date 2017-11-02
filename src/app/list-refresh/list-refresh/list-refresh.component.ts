@@ -48,6 +48,12 @@ export class ListRefreshComponent implements OnInit {
     row.stop = true;
     row.status = 'Completed';
   }
+
+  updateStatus(sec, row) {
+    if (sec === 0 ) {
+      row.status = 'Expired';
+    }
+  }
 }
 
 export interface Element {

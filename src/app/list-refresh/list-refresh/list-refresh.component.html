@@ -29,7 +29,7 @@
     <ng-container matColumnDef="updatedTime">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Timer </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <app-countdown [updateTime]="row.updatedTime" [max]="60" [stop]="row.stop" #countDown></app-countdown>
+        <app-countdown [updateTime]="row.updatedTime" [max]="60" [stop]="row.stop" (secEmitter)="updateStatus($event, row)" #countDown></app-countdown>
       </mat-cell>
     </ng-container>
 
