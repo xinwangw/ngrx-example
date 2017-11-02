@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/timer';
@@ -17,39 +17,65 @@ import 'rxjs/add/operator/takeWhile';
   </div>`,
   styleUrls: ['./countdown.component.scss']
 })
-export class CountdownComponent implements OnInit {
+export class CountdownComponent implements OnInit, OnChanges {
 
-  @Input() value: number = null;
+  value: number = null;
+  @Input() max = 100;
   start: number;
   sec = 60;
-  styleExp: string = '100%';
+  styleExp = '100%';
   @Input() updateTime: number;
+  @Input('stop') stopCountDown: boolean;
 
   constructor() {
   }
 
   ngOnInit() {
     const t = this;
-    t.start = t.updateTime + 60 * 1000;
-    t.sec = Math.round((t.start - Date.now()) / 1000 );
-    t.styleExp = this.value + '%';
+    t.start = t.updateTime + t.max * 1000;
+    t._refresh();
     const source = Observable.interval(1000);
-    const example = source.takeWhile(val => val <= 60);
-    const subscribe = example.subscribe(val => {
+    const example = source.takeWhile(val => val <= t.max);
+    example.subscribe(val => {
       if (this.sec > 0) {
-        this.sec = Math.round((t.start - Date.now()) / 1000 );
-        this.sec = this.sec < 0 ? 0 : this.sec;
-        if (this.sec === 0) {
-          this.value = 0;
-        } else {
-          this.value = Math.round((t.start - Date.now()) / 600);
-        }
-        t.styleExp = t.getStyleExp();
+        t._refresh();
       }
     });
   }
 
-  getStyleExp(): string {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['stopCountDown'] && this.stopCountDown) {
+      this.stop();
+    }
+  }
+
+  stop() {
+    this.sec = 0;
+    this.stopCountDown = true;
+    this._refreshValue();
+    this.styleExp = this._getStyleExp();
+  }
+
+  private  _refresh() {
+    this._refreshSec();
+    this._refreshValue();
+    this.styleExp = this._getStyleExp();
+  }
+
+  private _refreshSec() {
+    this.sec = Math.round((this.start - Date.now()) / 1000 );
+    this.sec = this.sec < 0 ? 0 : this.sec;
+  }
+
+  private _refreshValue() {
+    if (this.sec === 0) {
+      this.value = 0;
+    } else {
+      this.value = Math.round((this.start - Date.now()) / ((this.max / 100) * 1000));
+    }
+  }
+
+  private _getStyleExp(): string {
     return this.value != null ? this.value + '%' : '100%';
   }
 

@@ -14,7 +14,8 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <app-countdown [updateTime]="currentTime"></app-countdown>
+      <button mat-button (click)="stop(countDown)"> Stop </button>
+      <app-countdown [updateTime]="currentTime" #countDown></app-countdown>
     </div>
   </div>
 </div>

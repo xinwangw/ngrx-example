@@ -20,7 +20,7 @@ import {SelectIdAction} from '../../store/actions';
 })
 export class ListRefreshComponent implements OnInit {
 
-  displayedColumns = ['id', 'author', 'product', 'price', 'updatedTime'];
+  displayedColumns = ['id', 'author', 'product', 'price', 'updatedTime', 'action', 'status'];
   exampleDatabase: ExampleDatabase;
   dataSource: ExampleDataSource;
 
@@ -42,6 +42,12 @@ export class ListRefreshComponent implements OnInit {
     console.log(id);
     this._store.dispatch(new SelectIdAction(id));
   }
+
+  stop(row) {
+    console.log(row);
+    row.stop = true;
+    row.status = 'Completed';
+  }
 }
 
 export interface Element {
@@ -51,7 +57,9 @@ export interface Element {
   price: number;
   highlightClass: string;
   updatedTime: number;
-  restPercentage: number;
+  action?: number;
+  stop?: boolean;
+  status?: string;
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
@@ -74,8 +82,7 @@ export class ExampleDatabase {
           product: msg.message.product,
           price: msg.message.price,
           highlightClass: msg.highlightClass,
-          updatedTime: msg.updatedTime,
-          restPercentage: msg.updatedTime + 60 * 1000 < Date.now() ? 0 : Math.round((msg.updatedTime + 60 * 1000 - Date.now()) / 600)
+          updatedTime: msg.updatedTime
         };
       }));
     });
