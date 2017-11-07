@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Store} from '@ngrx/store';
+import {ApplicationState} from '../store/application-state';
+import {BatchAddAction} from '../store/actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +12,7 @@ export class DashboardComponent implements OnInit {
 
   currentTime = Date.now();
 
-  constructor() { }
+  constructor(private _store: Store<ApplicationState>) { }
 
   ngOnInit() {
   }
@@ -17,6 +20,10 @@ export class DashboardComponent implements OnInit {
   stop(ele) {
     console.log(ele);
     ele.stop();
+  }
+
+  batchAdd() {
+    this._store.next(new BatchAddAction());
   }
 
 }

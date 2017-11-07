@@ -22,7 +22,6 @@ export function handleInitDataLoadedAction(state: OrderStateList, action: InitDa
   const newState: OrderStateList = Object.assign({}, state);
   newState.orders = orderList.map(o => {
     const order = Object.assign({}, o);
-    order.updatedTime = Date.now();
     return order;
   });
   return newState;
@@ -34,7 +33,6 @@ export function handleOrderRefreshAction(state: OrderStateList, action: OrderRef
   const newState: OrderStateList = _.cloneDeep(state);
   if (order && order.id) {
     order.highlightClass = 'flash';
-    order.updatedTime = Date.now();
     const index = _.findIndex(newState.orders, e => e.id === order.id);
     newState.orders.map(o => o.highlightClass = '');
     if (index > -1) {

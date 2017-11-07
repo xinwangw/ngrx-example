@@ -23,7 +23,7 @@
     <!-- Price Column -->
     <ng-container matColumnDef="price">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.price | currency}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.price | currency:'AUD':'symbol-narrow':'1.2-2'}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="updatedTime">
