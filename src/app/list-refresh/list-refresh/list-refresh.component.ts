@@ -11,7 +11,7 @@ import {Store} from '@ngrx/store';
 import {Message} from '../../model/message';
 import {getInitOrders, getOrderData} from '../../reducer/reducer';
 import {MessageService} from '../../service/message.service';
-import {SelectIdAction} from '../../store/actions';
+import {AddUpdateOrderAction, SelectIdAction} from '../../store/actions';
 
 @Component({
   selector: 'app-list-refresh',
@@ -20,7 +20,7 @@ import {SelectIdAction} from '../../store/actions';
 })
 export class ListRefreshComponent implements OnInit {
 
-  displayedColumns = ['id', 'author', 'product', 'price', 'updatedTime', 'action', 'status'];
+  displayedColumns = ['id', 'author', 'product', 'price', 'expireTime', 'action', 'status'];
   exampleDatabase: ExampleDatabase;
   dataSource: ExampleDataSource;
 
@@ -47,10 +47,19 @@ export class ListRefreshComponent implements OnInit {
     console.log(row);
     row.stop = true;
     row.status = 'Completed';
+    this._store.dispatch(new AddUpdateOrderAction({
+      id: row.id,
+      author: row.author,
+      message: {
+        product: row.product,
+        price: row.price,
+      },
+      status: row.status
+    }));
   }
 
   updateStatus(sec, row) {
-    if (sec === 0 ) {
+    if (sec === 0 && row.status === 'PENDING') {
       row.status = 'Expired';
     }
   }
@@ -63,6 +72,7 @@ export interface Element {
   price: number;
   highlightClass: string;
   updatedTime: number;
+  expireTime: number;
   action?: number;
   stop?: boolean;
   status?: string;
@@ -88,7 +98,9 @@ export class ExampleDatabase {
           product: msg.message.product,
           price: msg.message.price,
           highlightClass: msg.highlightClass,
-          updatedTime: msg.updatedTime
+          updatedTime: msg.updatedTime,
+          expireTime: msg.expireTime,
+          status: msg.status
         };
       }));
     });
@@ -127,6 +139,7 @@ export class ExampleDataSource extends DataSource<Element> {
         case 'author': [propertyA, propertyB] = [a.author, b.author]; break;
         case 'product': [propertyA, propertyB] = [a.product, b.product]; break;
         case 'price': [propertyA, propertyB] = [a.price, b.price]; break;
+        case 'expireTime': [propertyA, propertyB] = [a.expireTime, b.expireTime]; break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

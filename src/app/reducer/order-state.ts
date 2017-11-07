@@ -22,6 +22,8 @@ export function handleOrderRefreshAction(state: OrderState, action: OrderRefresh
   newState.author = message.author;
   newState.highlightClass = 'flash';
   newState.updatedTime = message.updatedTime;
+  newState.expireTime = message.expireTime;
+  newState.status = message.status;
   console.log(newState);
   return newState;
 }

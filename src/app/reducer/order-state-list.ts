@@ -39,6 +39,8 @@ export function handleOrderRefreshAction(state: OrderStateList, action: OrderRef
       newState.orders[index] = order;
       newState.orders[index].highlightClass = order.highlightClass;
       newState.orders[index].updatedTime = order.updatedTime;
+      newState.orders[index].expireTime = order.expireTime;
+      newState.orders[index].status = order.status;
     } else {
       newState.orders.push(order);
     }

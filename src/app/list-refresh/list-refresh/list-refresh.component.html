@@ -1,5 +1,5 @@
 <div class="mat-elevation-z1">
-  <mat-table #table [dataSource]="dataSource" matSort>
+  <mat-table #table [dataSource]="dataSource" matSort matSortActive="expireTime" matSortDirection="desc" matSortDisableClear>
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
@@ -26,17 +26,20 @@
       <mat-cell *matCellDef="let row"> {{row.price | currency:'AUD':'symbol-narrow':'1.2-2'}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="updatedTime">
+    <ng-container matColumnDef="expireTime">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Timer </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <app-countdown [updateTime]="row.updatedTime" [max]="60" [stop]="row.stop" (secEmitter)="updateStatus($event, row)" #countDown></app-countdown>
+        <app-countdown [updateTime]="row.updatedTime"
+                       [expireTime]="row.expireTime"
+                       [max]="60" [stop]="row.stop"
+                       (secEmitter)="updateStatus($event, row)" #countDown></app-countdown>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button (click)="stop(row)"> Stop </button>
+        <button mat-button (click)="stop(row)" [disabled]="row.status!=='PENDING'"> Stop </button>
       </mat-cell>
     </ng-container>
 

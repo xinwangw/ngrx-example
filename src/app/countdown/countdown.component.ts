@@ -25,6 +25,7 @@ export class CountdownComponent implements OnInit, OnChanges {
   sec = 60;
   styleExp = '100%';
   @Input() updateTime: number;
+  @Input() expireTime: number;
   @Input('stop') stopCountDown: boolean;
   @Output() secEmitter: EventEmitter<number> = new EventEmitter();
 
@@ -34,6 +35,9 @@ export class CountdownComponent implements OnInit, OnChanges {
   ngOnInit() {
     const t = this;
     t.start = t.updateTime + t.max * 1000;
+    if (t.expireTime) {
+      t.start = t.expireTime;
+    }
     t._refresh();
     const source = Observable.interval(1000);
     const example = source.takeWhile(val => val <= t.max);

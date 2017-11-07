@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Message} from '../../model/message';
-import {MessageService} from '../../service/message.service';
 import {Store} from '@ngrx/store';
 import {ApplicationState} from '../../store/application-state';
 import {Observable} from 'rxjs/Observable';
 import {OrderState} from '../../store/order-state';
 import {getSelectedOrder} from '../../reducer/reducer';
+import {AddUpdateOrderAction} from '../../store/actions';
 
 @Component({
   selector: 'app-data-input',
@@ -25,7 +25,7 @@ export class DataInputComponent implements OnInit {
 
   selectedOrder$: Observable<OrderState>;
 
-  constructor(private service: MessageService, private _store: Store<ApplicationState>) {
+  constructor(private _store: Store<ApplicationState>) {
     this.selectedOrder$ = _store.select(getSelectedOrder);
   }
 
@@ -33,13 +33,14 @@ export class DataInputComponent implements OnInit {
     this.selectedOrder$.subscribe(o => {
       if (o) {
         this.message = o;
+        this.message.status = 'PENDING';
       }
     });
   }
 
   sendMsg() {
     console.log('new message from client to websocket: ', this.message);
-    this.service.subject.next({method: 'order', data: this.message});
+    this._store.dispatch(new AddUpdateOrderAction(this.message));
     this.message = {
       id: 0,
       author: '',

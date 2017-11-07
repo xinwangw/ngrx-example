@@ -6,6 +6,8 @@ export interface OrderState {
   message: MessageBody;
   highlightClass?: string;
   updatedTime?: number;
+  expireTime?: number;
+  status?: string;
 }
 
 export const INIT_ORDER_STATE: OrderState =  {
@@ -15,7 +17,7 @@ export const INIT_ORDER_STATE: OrderState =  {
     product: null,
     price: null
   }
-}
+};
 
 export interface OrderStateList {
   orders: OrderState[];

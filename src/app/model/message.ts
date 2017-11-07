@@ -8,6 +8,8 @@ export interface Message {
   message: MessageBody;
   highlightClass?: string;
   updatedTime?: number;
+  expireTime?: number;
+  status?: string;
 }
 export interface SendMessage {
   method: string;
