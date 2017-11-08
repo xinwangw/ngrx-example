@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <ag-grid-angular class="ag-dark" style="width:100%;height:500px"
+                       [rowData]="msgs"
+                       [columnDefs]="columnDefs"
+                       [getRowClass]="getRowClass"
+                       [enableColResize]="true"
+                       (gridReady)="onGridReady($event)"
+                       enableSorting>
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>

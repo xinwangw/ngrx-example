@@ -5,12 +5,10 @@ import 'rxjs/add/observable/merge';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {MatSort} from '@angular/material';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import * as _ from 'lodash';
 import {ApplicationState} from '../../store/application-state';
 import {Store} from '@ngrx/store';
 import {Message} from '../../model/message';
-import {getInitOrders, getOrderData} from '../../reducer/reducer';
-import {MessageService} from '../../service/message.service';
+import {getInitOrders} from '../../reducer/reducer';
 import {AddUpdateOrderAction, SelectIdAction} from '../../store/actions';
 
 @Component({
@@ -26,11 +24,7 @@ export class ListRefreshComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: MessageService, private _store: Store<ApplicationState>) {
-    this.service.dataSubject.subscribe(action => {
-      console.log(action);
-      _store.dispatch(action);
-    });
+  constructor(private _store: Store<ApplicationState>) {
     this.exampleDatabase = new ExampleDatabase(_store);
   }
 

@@ -15,11 +15,20 @@ import {WebsocketService} from './service/websocket.service';
 import {MessageService} from './service/message.service';
 import { CountdownComponent } from './countdown/countdown.component';
 import {MatProgressBarModule} from '@angular/material';
+import { AggridComponent } from './aggrid/aggrid.component';
+import {AgGridModule} from 'ag-grid-angular';
+import {PriceRenderComponent} from './aggrid/render/price-render.component';
+import {TimerRenderComponent} from "./aggrid/render/timer-render.component";
+import {StatusRenderComponent} from "./aggrid/render/status-render.component";
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'ag-grid',
+    component: AggridComponent
   }
 ];
 
@@ -29,7 +38,11 @@ const routes: Routes = [
     routingComponents,
     dataChangeRoutingComponents,
     DashboardComponent,
-    CountdownComponent
+    CountdownComponent,
+    AggridComponent,
+    PriceRenderComponent,
+    TimerRenderComponent,
+    StatusRenderComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +50,7 @@ const routes: Routes = [
     ListRefreshModule,
     DataChangeModule,
     MatProgressBarModule,
+    AgGridModule.withComponents([ PriceRenderComponent, TimerRenderComponent, StatusRenderComponent ]),
     RouterModule.forRoot(routes),
     StoreModule.forRoot(storeReducer),
     EffectsModule.forRoot([LoadInitDataEffectService]),

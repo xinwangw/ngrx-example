@@ -12,5 +12,9 @@ export class AppComponent {
   title = 'app';
   constructor(private service: MessageService, private _store: Store<ApplicationState>) {
     this.service.subject.subscribe();
+    this.service.dataSubject.subscribe(action => {
+      console.log(action);
+      _store.dispatch(action);
+    });
   }
 }
