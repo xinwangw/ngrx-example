@@ -1,10 +1,10 @@
 <button mat-button [matMenuTriggerFor]="menu">Menu</button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="/dashboard">Dashboard</button>
-  <button mat-menu-item routerLink="/example">Examples</button>
-  <button mat-menu-item routerLink="/ag-grid">Ag-grid</button>
-  <button mat-menu-item routerLink="/nongrx">No NgRx</button>
-  <button mat-menu-item routerLink="/resource">Resource</button>
+  <a mat-menu-item routerLink="/dashboard" target="_blank">Dashboard</a>
+  <a mat-menu-item routerLink="/example" target="_blank">Examples</a>
+  <a mat-menu-item routerLink="/ag-grid" target="_blank">Ag-grid</a>
+  <a mat-menu-item routerLink="/nongrx" target="_blank">No NgRx</a>
+  <a mat-menu-item routerLink="/resource" target="_blank">Resource</a>
 </mat-menu>
 <div class="container-fluid">
   <router-outlet></router-outlet>
