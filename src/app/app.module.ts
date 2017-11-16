@@ -27,7 +27,8 @@ import { PendingCountNoNgRxComponent } from './pending-count-no-ng-rx/pending-co
 import {SharedInternalEventService} from './service/shared-internal-event.service';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {HttpClientModule} from '@angular/common/http';
-import {UserService} from "./service/user.service";
+import {UserService} from './service/user.service';
+import { ResourceComponent } from './resource/resource.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'nongrx',
     component: NongrxComponent
+  },
+  {
+    path: 'resource',
+    component: ResourceComponent
   }
 ];
 
@@ -62,7 +67,8 @@ const routes: Routes = [
     ExampleComponent,
     NongrxComponent,
     PendingCountComponent,
-    PendingCountNoNgRxComponent
+    PendingCountNoNgRxComponent,
+    ResourceComponent
   ],
   imports: [
     BrowserModule,
