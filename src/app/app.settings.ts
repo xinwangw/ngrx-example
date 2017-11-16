@@ -1,3 +1,3 @@
 export class AppSettings {
-  public static CHAT_URL = 'ws://localhost:8080';
+  public static readonly CHAT_URL = 'ws://localhost:9090';
 }

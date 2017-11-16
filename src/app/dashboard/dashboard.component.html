@@ -1,23 +1,12 @@
-<div class="container">
+
   <div class="row">
     <div class="col-12 col-sm-9">
       <app-list-refresh style="margin-top: 10px"></app-list-refresh>
     </div>
     <div class="col-12 col-sm-3">
+      <app-pending-count></app-pending-count>
       <app-data-input style="margin-top: 10px"></app-data-input>
       <p></p>
       <button mat-raised-button color="primary" (click)="batchAdd()">Batch Add Data</button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12">
-      Count down progress
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <button mat-button (click)="stop(countDown)"> Stop </button>
-      <app-countdown [updateTime]="currentTime" #countDown></app-countdown>
-    </div>
-  </div>
-</div>

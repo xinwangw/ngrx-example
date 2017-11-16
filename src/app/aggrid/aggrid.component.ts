@@ -34,7 +34,7 @@ export class AggridComponent implements OnInit {
         cellRendererFramework: TimerRenderComponent,
         headerName: 'Timer', field: 'expireTime', width: 100, sort: 'desc'
       },
-      { cellRendererFramework: StatusRenderComponent,editable: true,
+      { cellRendererFramework: StatusRenderComponent,
         headerName: 'Status', field: 'status', width: 100},
     ];
 

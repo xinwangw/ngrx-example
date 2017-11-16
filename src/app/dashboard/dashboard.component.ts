@@ -16,12 +16,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  stop(ele) {
-    console.log(ele);
-    ele.stop();
-  }
-
+  
   batchAdd() {
     this._store.next(new BatchAddAction());
   }

@@ -32,3 +32,10 @@ export const getSelectedOrder = createSelector(
     return orderDataList.orders.find(o => o.id === uiState.currentOrderId);
   }
 );
+
+export const getPendingOrderCount = createSelector(
+  getUiState,
+  (uiState: UiState) => {
+    return uiState.pendingOrderCount;
+  }
+);

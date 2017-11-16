@@ -1,6 +1,7 @@
 import {AgRendererComponent} from 'ag-grid-angular';
 import {IAfterGuiAttachedParams, ICellRendererParams} from 'ag-grid';
 import {Component} from '@angular/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-price-cell',
@@ -28,6 +29,8 @@ export class TimerRenderComponent implements AgRendererComponent {
   updateStatus(sec, row) {
     if (sec === 0 && row.status === 'PENDING') {
       row.status = 'Expired';
+      this.params.node.setData(_.clone(row));
     }
+
   }
 }

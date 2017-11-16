@@ -1,9 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap.scss";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "~bootstrap/scss/bootstrap-grid.scss";
-@import "~bootstrap/scss/mixins/border-radius";
-@import "~bootstrap/scss/mixins/gradients";
-@import "~bootstrap/scss/progress";
 
 .align-item-start .mat-grid-tile .mat-figure{
   align-items: flex-start;
@@ -27,4 +24,12 @@
   -webkit-animation-duration: 900ms;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in-out;
+}
+
+.m-t-10 {
+  margin-top: 10px;
+}
+
+.m-t-20 {
+  margin-top: 20px;
 }

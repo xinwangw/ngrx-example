@@ -26,6 +26,7 @@ export function handleSelectIdAction(state: UiState, action: SelectIdAction): Ui
 export function handleOrderRefreshActionAction(state: UiState, action: OrderRefreshAction): UiState {
   const newState: UiState = Object.assign({}, state);
   newState.currentOrderId = 0;
+  newState.pendingOrderCount++;
   return newState;
 }
 

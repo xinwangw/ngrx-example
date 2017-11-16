@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-12">
+      <h1>Count down progress</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 m-t-10">
+      <button mat-raised-button (click)="stop(countDown)"> Stop </button>
+    </div>
+    <div class="col-12 m-t-10">
+      <app-countdown [updateTime]="currentTime" #countDown></app-countdown>
+    </div>
+</div>

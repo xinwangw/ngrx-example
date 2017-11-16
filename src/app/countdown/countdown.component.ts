@@ -44,6 +44,7 @@ export class CountdownComponent implements OnInit, OnChanges {
     example.subscribe(val => {
       if (this.sec > 0) {
         t._refresh();
+        this.secEmitter.next(this.sec);
       }
     });
   }
@@ -70,7 +71,6 @@ export class CountdownComponent implements OnInit, OnChanges {
   private _refreshSec() {
     this.sec = Math.round((this.start - Date.now()) / 1000 );
     this.sec = this.sec < 0 ? 0 : this.sec;
-    this.secEmitter.next(this.sec);
   }
 
   private _refreshValue() {

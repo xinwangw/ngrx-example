@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {WebsocketService} from './websocket.service';
 import {AppSettings} from '../app.settings';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
-import {ApplicationState} from '../store/application-state';
-import {Store, Action} from '@ngrx/store';
+import {Action} from '@ngrx/store';
 import {InitDataLoadedAction, InitLoadDataAction, OrderRefreshAction} from '../store/actions';
 
 @Injectable()
 export class MessageService {
   public subject: Subject<any>;
   public dataSubject: Subject<Action> = new Subject<Action>();
+  public responseDataSubject: Subject<any> = new Subject<any>();
 
   constructor(wsService: WebsocketService) {
     const t = this;
@@ -30,6 +30,7 @@ export class MessageService {
         if (data['initData']) {
           t.dataSubject.next(new InitDataLoadedAction(data['initData']));
         }
+        t.responseDataSubject.next(data);
         return data;
       });
 

@@ -14,12 +14,17 @@ import {LoadInitDataEffectService} from './store/effects/load-init-data-effect.s
 import {WebsocketService} from './service/websocket.service';
 import {MessageService} from './service/message.service';
 import { CountdownComponent } from './countdown/countdown.component';
-import {MatProgressBarModule} from '@angular/material';
+import {MatProgressBarModule, MatMenuModule} from '@angular/material';
 import { AggridComponent } from './aggrid/aggrid.component';
 import {AgGridModule} from 'ag-grid-angular';
 import {PriceRenderComponent} from './aggrid/render/price-render.component';
-import {TimerRenderComponent} from "./aggrid/render/timer-render.component";
-import {StatusRenderComponent} from "./aggrid/render/status-render.component";
+import {TimerRenderComponent} from './aggrid/render/timer-render.component';
+import {StatusRenderComponent} from './aggrid/render/status-render.component';
+import { ExampleComponent } from './example/example.component';
+import { NongrxComponent } from './nongrx/nongrx.component';
+import { PendingCountComponent } from './pending-count/pending-count.component';
+import { PendingCountNoNgRxComponent } from './pending-count-no-ng-rx/pending-count-no-ng-rx.component';
+import {SharedInternalEventService} from './service/shared-internal-event.service';
 
 const routes: Routes = [
   {
@@ -29,6 +34,14 @@ const routes: Routes = [
   {
     path: 'ag-grid',
     component: AggridComponent
+  },
+  {
+    path: 'example',
+    component: ExampleComponent
+  },
+  {
+    path: 'nongrx',
+    component: NongrxComponent
   }
 ];
 
@@ -42,7 +55,11 @@ const routes: Routes = [
     AggridComponent,
     PriceRenderComponent,
     TimerRenderComponent,
-    StatusRenderComponent
+    StatusRenderComponent,
+    ExampleComponent,
+    NongrxComponent,
+    PendingCountComponent,
+    PendingCountNoNgRxComponent
   ],
   imports: [
     BrowserModule,
@@ -50,12 +67,13 @@ const routes: Routes = [
     ListRefreshModule,
     DataChangeModule,
     MatProgressBarModule,
+    MatMenuModule,
     AgGridModule.withComponents([ PriceRenderComponent, TimerRenderComponent, StatusRenderComponent ]),
     RouterModule.forRoot(routes),
     StoreModule.forRoot(storeReducer),
     EffectsModule.forRoot([LoadInitDataEffectService]),
   ],
-  providers: [WebsocketService, MessageService],
+  providers: [WebsocketService, MessageService, SharedInternalEventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
