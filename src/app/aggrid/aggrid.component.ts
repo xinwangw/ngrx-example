@@ -11,8 +11,7 @@ import {StatusRenderComponent} from './render/status-render.component';
 
 @Component({
   selector: 'app-aggrid',
-  templateUrl: './aggrid.component.html',
-  styleUrls: ['./aggrid.component.scss']
+  templateUrl: './aggrid.component.html'
 })
 export class AggridComponent implements OnInit {
   initData$: Observable<Message[]>;

@@ -13,8 +13,7 @@ import {AddUpdateOrderAction, GetUserAction, SelectIdAction} from '../../store/a
 
 @Component({
   selector: 'app-list-refresh',
-  templateUrl: './list-refresh.component.html',
-  styleUrls: ['./list-refresh.component.css']
+  templateUrl: './list-refresh.component.html'
 })
 export class ListRefreshComponent implements OnInit {
 

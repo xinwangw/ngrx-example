@@ -14,8 +14,7 @@ import 'rxjs/add/operator/takeWhile';
          aria-valuemin="0" aria-valuemax="100">
       <span *ngIf="value">{{sec}}s</span>
     </div>
-  </div>`,
-  styleUrls: ['./countdown.component.scss']
+  </div>`
 })
 export class CountdownComponent implements OnInit, OnChanges {
 
