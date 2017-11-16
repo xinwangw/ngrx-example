@@ -50,16 +50,7 @@ export class NongrxComponent implements OnInit {
       if (msgs.initData) {
         this.msgs = msgs.initData.filter(msg => msg && msg.id)
           .map(msg => {
-            return {
-              id: msg.id,
-              author: msg.author,
-              product: msg.message.product,
-              price: msg.message.price,
-              highlightClass: msg.highlightClass,
-              updatedTime: msg.updatedTime,
-              expireTime: msg.expireTime,
-              status: msg.status
-            };
+            return this._convert(msg);
           });
       }
       if (msgs.order) {

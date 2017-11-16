@@ -3,16 +3,18 @@ import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {Actions, Effect} from '@ngrx/effects';
 import {
-  ADD_UPDATE_ORDER_ACTION, AddUpdateOrderAction, BATCH_ADD_ACTION, BatchAddAction, DoNothingAction,
+  ADD_UPDATE_ORDER_ACTION, AddUpdateOrderAction, BATCH_ADD_ACTION, BatchAddAction, DoNothingAction, GET_USER_ACTION,
+  GetUserAction,
   INIT_LOAD_DATA_ACTION,
-  InitLoadDataAction
+  InitLoadDataAction, UserLoadedAction
 } from '../actions';
 import {MessageService} from '../../service/message.service';
 import 'rxjs/add/operator/switchMap';
+import {UserService} from "../../service/user.service";
 
 @Injectable()
 export class LoadInitDataEffectService {
-  constructor(private _actions$: Actions, private service: MessageService) { }
+  constructor(private _actions$: Actions, private service: MessageService, private userService: UserService) { }
 
   @Effect() loadData$: Observable<Action> = this._actions$.ofType(INIT_LOAD_DATA_ACTION)
     .switchMap((action: InitLoadDataAction) => {
@@ -38,4 +40,8 @@ export class LoadInitDataEffectService {
         data: action.payload});
       return Observable.of(new DoNothingAction());
     });
+
+  @Effect() getUser$: Observable<Action> = this._actions$.ofType(GET_USER_ACTION)
+    .switchMap((action: GetUserAction) => this.userService.getUser(action.payload))
+    .map(data => new UserLoadedAction(data));
 }

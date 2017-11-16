@@ -8,8 +8,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApplicationState} from '../../store/application-state';
 import {Store} from '@ngrx/store';
 import {Message} from '../../model/message';
-import {getInitOrders} from '../../reducer/reducer';
-import {AddUpdateOrderAction, SelectIdAction} from '../../store/actions';
+import {getInitOrders, getUserData} from '../../reducer/reducer';
+import {AddUpdateOrderAction, GetUserAction, SelectIdAction} from '../../store/actions';
 
 @Component({
   selector: 'app-list-refresh',
@@ -21,20 +21,27 @@ export class ListRefreshComponent implements OnInit {
   displayedColumns = ['id', 'author', 'product', 'price', 'expireTime', 'action', 'status'];
   exampleDatabase: ExampleDatabase;
   dataSource: ExampleDataSource;
+  userData$;
 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private _store: Store<ApplicationState>) {
     this.exampleDatabase = new ExampleDatabase(_store);
+    this._store.dispatch(new GetUserAction('test'));
   }
 
   ngOnInit() {
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort);
+    this.userData$ = this._store.select(getUserData);
   }
 
   selectId(id) {
     console.log(id);
     this._store.dispatch(new SelectIdAction(id));
+  }
+
+  getUser(userId) {
+    this._store.dispatch(new GetUserAction(userId));
   }
 
   stop(row) {

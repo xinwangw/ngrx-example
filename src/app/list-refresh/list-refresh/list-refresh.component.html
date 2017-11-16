@@ -11,7 +11,7 @@
     <!-- Author Column -->
     <ng-container matColumnDef="author">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Author </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.author}} </mat-cell>
+      <mat-cell *matCellDef="let row" matTooltip="{{userData$ | async}}" (mouseenter) ="getUser(row.author)"> {{row.author}} </mat-cell>
     </ng-container>
 
     <!-- A Column -->

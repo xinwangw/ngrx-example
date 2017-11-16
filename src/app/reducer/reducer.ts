@@ -39,3 +39,10 @@ export const getPendingOrderCount = createSelector(
     return uiState.pendingOrderCount;
   }
 );
+
+export const getUserData = createSelector(
+  getUiState,
+  (uiState: UiState) => {
+    return uiState.userData.name;
+  }
+);

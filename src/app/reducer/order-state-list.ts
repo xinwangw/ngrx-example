@@ -22,6 +22,7 @@ export function handleInitDataLoadedAction(state: OrderStateList, action: InitDa
   const newState: OrderStateList = Object.assign({}, state);
   newState.orders = orderList.map(o => {
     const order = Object.assign({}, o);
+    order.status = o.expireTime <= Date.now() && o.status === 'PENDING' ? 'Expired' : o.status;
     return order;
   });
   return newState;

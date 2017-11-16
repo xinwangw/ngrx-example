@@ -7,6 +7,8 @@ export const INIT_DATA_LOADED_ACTION = 'INIT_DATA_LOADED_ACTION';
 export const SELECT_ID_ACTION = 'SELECT_ID_ACTION';
 export const BATCH_ADD_ACTION = 'BATCH_ADD_ACTION';
 export const ADD_UPDATE_ORDER_ACTION = 'ADD_UPDATE_ORDER_ACTION';
+export const GET_USER_ACTION = 'GET_USER_ACTION';
+export const USER_LOADED_ACTION = 'USER_LOADED_ACTION';
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';
 
 export class OrderRefreshAction implements Action {
@@ -37,6 +39,16 @@ export class BatchAddAction implements Action {
 export class AddUpdateOrderAction implements Action {
   readonly type = ADD_UPDATE_ORDER_ACTION;
   constructor(public payload: Message) {}
+}
+
+export class GetUserAction implements Action {
+  readonly type = GET_USER_ACTION;
+  constructor(public payload: string) {}
+}
+
+export class UserLoadedAction implements Action {
+  readonly type = USER_LOADED_ACTION;
+  constructor(public payload: any) {}
 }
 
 export class DoNothingAction implements Action {

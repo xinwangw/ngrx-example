@@ -25,6 +25,9 @@ import { NongrxComponent } from './nongrx/nongrx.component';
 import { PendingCountComponent } from './pending-count/pending-count.component';
 import { PendingCountNoNgRxComponent } from './pending-count-no-ng-rx/pending-count-no-ng-rx.component';
 import {SharedInternalEventService} from './service/shared-internal-event.service';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {HttpClientModule} from '@angular/common/http';
+import {UserService} from "./service/user.service";
 
 const routes: Routes = [
   {
@@ -63,6 +66,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ListRefreshModule,
     DataChangeModule,
@@ -72,8 +76,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     StoreModule.forRoot(storeReducer),
     EffectsModule.forRoot([LoadInitDataEffectService]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    })
   ],
-  providers: [WebsocketService, MessageService, SharedInternalEventService],
+  providers: [WebsocketService, MessageService, SharedInternalEventService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
