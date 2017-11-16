@@ -4,7 +4,7 @@ import {PriceRenderComponent} from '../aggrid/render/price-render.component';
 import {TimerRenderComponent} from '../aggrid/render/timer-render.component';
 import {StatusRenderComponent} from '../aggrid/render/status-render.component';
 import * as _ from 'lodash';
-import {SharedInternalEventService} from "../service/shared-internal-event.service";
+import {SharedInternalEventService} from '../service/shared-internal-event.service';
 
 @Component({
   selector: 'app-nongrx',
