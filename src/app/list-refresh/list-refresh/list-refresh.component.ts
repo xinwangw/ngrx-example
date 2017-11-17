@@ -100,7 +100,8 @@ export class ExampleDatabase {
           highlightClass: msg.highlightClass,
           updatedTime: msg.updatedTime,
           expireTime: msg.expireTime,
-          status: msg.status
+          status: msg.status,
+          stop: msg.status === 'Completed'
         };
       }));
     });

@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-price-cell',
   template: `<app-countdown [updateTime]="params.data.updatedTime"
+                            [id]="'timer-'+params.data.id"
                             [expireTime]="params.data.expireTime"
                             [max]="60" [stop]="params.data.stop"
                             (secEmitter)="updateStatus($event, params.data)"

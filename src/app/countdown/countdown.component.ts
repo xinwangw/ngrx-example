@@ -10,14 +10,14 @@ import 'rxjs/add/operator/takeWhile';
   template: `
   <div class="progress">
     <div class="progress-bar" role="progressbar"
-         [ngStyle]="{'width': styleExp}" [attr.aria-valuenow]="value"
+         [attr.aria-valuenow]="value"
          aria-valuemin="0" aria-valuemax="100">
-      <span *ngIf="value">{{sec}}s</span>
+      <span [attr.id]="id"></span>
     </div>
   </div>`
 })
 export class CountdownComponent implements OnInit, OnChanges {
-
+  @Input() id: string;
   value: number = null;
   @Input() max = 100;
   start: number;
@@ -38,12 +38,16 @@ export class CountdownComponent implements OnInit, OnChanges {
       t.start = t.expireTime;
     }
     t._refresh();
-    const source = Observable.interval(1000);
-    const example = source.takeWhile(val => val <= t.max);
+    const end = t.sec;
+    const source = Observable.timer(0, 1000);
+    const example = source.takeWhile(val => val <= end && !this.stopCountDown);
     example.subscribe(val => {
-      if (this.sec > 0) {
+      if (this.sec > 0 && !this.stopCountDown) {
         t._refresh();
-        this.secEmitter.next(this.sec);
+        this._updateSecEle();
+        if (this.sec === 0) {
+          this.secEmitter.next(this.sec);
+        }
       }
     });
   }
@@ -59,6 +63,7 @@ export class CountdownComponent implements OnInit, OnChanges {
     this.stopCountDown = true;
     this._refreshValue();
     this.styleExp = this._getStyleExp();
+    this._updateSecEle();
   }
 
   private  _refresh() {
@@ -82,6 +87,14 @@ export class CountdownComponent implements OnInit, OnChanges {
 
   private _getStyleExp(): string {
     return this.value != null ? this.value + '%' : '100%';
+  }
+
+  private _updateSecEle(){
+    const secEle = document.getElementById(this.id);
+    if (secEle) {
+      secEle.innerText = this.sec > 0 ? this.sec + 's' : '';
+      secEle.parentElement.style.width = this._getStyleExp();
+    }
   }
 
 }

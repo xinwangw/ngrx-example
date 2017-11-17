@@ -30,6 +30,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> Timer </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <app-countdown [updateTime]="row.updatedTime"
+                       [id]="'timer-'+row.id"
                        [expireTime]="row.expireTime"
                        [max]="60" [stop]="row.stop"
                        (secEmitter)="updateStatus($event, row)" #countDown></app-countdown>

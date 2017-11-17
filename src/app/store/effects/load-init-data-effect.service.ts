@@ -20,8 +20,8 @@ export class LoadInitDataEffectService {
     .switchMap((action: InitLoadDataAction) => {
       console.log('init data calling...');
       this.service.subject.next({
-          method: 'initData',
-          data: 'initData'});
+        method: 'initData',
+        data: 'initData'});
       return Observable.of(new DoNothingAction());
     });
 
