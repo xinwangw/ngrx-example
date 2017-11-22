@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/timer';
@@ -16,7 +16,8 @@ import 'rxjs/add/operator/takeWhile';
     </div>
   </div>`
 })
-export class CountdownComponent implements OnInit, OnChanges {
+export class CountdownComponent implements OnInit, OnChanges, OnDestroy {
+
   @Input() id: string;
   value: number = null;
   @Input() max = 100;
@@ -25,9 +26,10 @@ export class CountdownComponent implements OnInit, OnChanges {
   styleExp = '100%';
   @Input() updateTime: number;
   @Input() expireTime: number;
-  @Input('stop') stopCountDown: boolean;
+  @Input() stop: boolean = false;
   @Output() secEmitter: EventEmitter<number> = new EventEmitter();
 
+  sub;
   constructor() {
   }
 
@@ -40,9 +42,11 @@ export class CountdownComponent implements OnInit, OnChanges {
     t._refresh();
     const end = t.sec;
     const source = Observable.timer(0, 1000);
-    const example = source.takeWhile(val => val <= end && !this.stopCountDown);
-    example.subscribe(val => {
-      if (this.sec > 0 && !this.stopCountDown) {
+    const example = source.takeWhile(val => {
+      return val <= end && !this.stop;
+    });
+    this.sub = example.subscribe(val => {
+      if (this.sec > 0 && !this.stop) {
         t._refresh();
         this._updateSecEle();
         if (this.sec === 0) {
@@ -53,14 +57,18 @@ export class CountdownComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['stopCountDown'] && this.stopCountDown) {
-      this.stop();
+    if (changes['stopCountDown'] && this.stop) {
+      this.stopCountDown();
     }
   }
 
-  stop() {
+  ngOnDestroy(): void {
+    this.sub.complete();
+  }
+
+  stopCountDown() {
     this.sec = 0;
-    this.stopCountDown = true;
+    this.stop = true;
     this._refreshValue();
     this.styleExp = this._getStyleExp();
     this._updateSecEle();
